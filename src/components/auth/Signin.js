@@ -1,8 +1,64 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../../layouts/Navbar'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+import { signin, authenticate, isAuthenticated } from './index'
 
 const Signin = () => {
+    const [values, setValues] = useState({
+        email: '', password: '', error: '', loading: false, redirectToReferrer: false,
+    });
+    const { email, password, loading, error, redirectToReferrer } = values;
+
+    const { user } = isAuthenticated();
+
+    const handleChange = name => event => {
+        setValues({ ...values, error: false, [name]: event.target.value });
+    }
+
+    const clickSubmit = (event) => {
+        event.preventDefault();
+        setValues({ ...values, error: false, loading: true });
+        signin({ email, password })
+            .then(data => {
+                if (data.error) {
+                    setValues({ ...values, error: data.error, loading: false })
+                }
+                else {
+                    authenticate(data, () => {
+                        setValues({
+                            ...values,
+                            redirectToReferrer: true
+                        });
+                    });
+                }
+            });
+    };
+
+    const showError = () => (
+        <div className="alert alert-danger mb-3" style={{ display: error ? '' : 'none' }}>
+            {error}
+        </div>
+    );
+
+    const showLoading = () =>
+        loading && (<div className="alert alert-info">
+            <h2>Loading....</h2>
+        </div>
+        );
+    const redirectUser = () => {
+        if (redirectToReferrer) {
+            if (user && user.role === 1) {
+                return <Redirect to="/admin/dashboard" />
+            } else {
+                return <Redirect to="/user/dashboard" />
+            }
+        }
+        if (isAuthenticated()) {
+            return <Redirect to="/" />
+        }
+
+    }
+
     return (
         <>
             <Navbar />
@@ -13,18 +69,20 @@ const Signin = () => {
                             <h5 className="modal-title">Login</h5>
                         </div>
                         <div className="modal-body">
-                            <form action="#" method="post">
-
+                            {showError()}
+                            {showLoading()}
+                            {redirectUser()}
+                            <form>
                                 <div className="form-group">
                                     <label className="col-form-label">Email</label>
-                                    <input type="email" className="form-control" placeholder=" " name="Email" required="" />
+                                    <input type="email" onChange={handleChange('email')} value={email} className="form-control" placeholder=" " name="Email" required="" />
                                 </div>
                                 <div className="form-group">
                                     <label className="col-form-label">Password</label>
-                                    <input type="password" className="form-control" placeholder=" " name="Password" id="password1" required="" />
+                                    <input type="password" onChange={handleChange('password')} value={password} className="form-control" placeholder=" " name="Password" id="password1" required="" />
                                 </div>
                                 <div className="right-w3l">
-                                    <input type="submit" className="form-control" value="Login" />
+                                    <input type="submit" onClick={clickSubmit} className="form-control" value="Login" />
                                 </div>
                                 <div className="sub-w3l">
                                     <div className="custom-control custom-checkbox mr-sm-2">
