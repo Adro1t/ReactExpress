@@ -132,7 +132,7 @@ const Navbar = ({ history }) => {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav ml-auto text-center mr-xl-5">
                                 <li className="nav-item active mr-lg-2 mb-lg-0 mb-2">
-                                    <Link className="nav-link" to="index.html">Home
+                                    <Link className="nav-link" to="/">Home
 								<span className="sr-only">(current)</span>
                                     </Link>
                                 </li>
