@@ -14,6 +14,8 @@ import UserDashboard from './components/auth/UserDashboard'
 import Home from './components/Home'
 import ProductDetail from './components/ProductDetail'
 import Shop from './components/Shop'
+import Cart from './components/Cart'
+
 const Routes = () => {
     return (
         <>
@@ -26,12 +28,15 @@ const Routes = () => {
                     <Route exact path="/signin" component={Signin} />
                     <Route exact path="/forgetpassword" component={Forgetpassword} />
                     <Route exact path="/reset/password/:token" component={Resetpassword} />
+                    <Route exact path="/productdetails/:productId" component={ProductDetail} />
+                    <Route exact path="/shop" component={Shop} />
+                    <Route exact path="/cart" component={Cart}/>
+                                    
                     <PrivateRoute exact path="/user/dashboard" component={UserDashboard} />
                     <AdminRoute exact path="/admin/dashboard" component={AdminDashboard} />
                     <AdminRoute exact path="/create/category" component={CreateCategory} />
                     <AdminRoute exact path="/create/product" component={CreateProduct} />
-                    <Route exact path="/productdetails/:productId" component={ProductDetail} />
-                    <Route exact path="/shop" component={Shop} />
+                    
                 </Switch>
             </Router>
         </>

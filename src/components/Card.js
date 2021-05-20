@@ -1,12 +1,26 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, Redirect } from 'react-router-dom'
+import { addItem } from './cartApi'
 
 const Card = ({ product }) => {
+    const [redirect, setRedirect] = useState(false)
+
+    const addToCart = () => {
+        addItem(product, setRedirect(true))
+    }
+
+    const shouldRedirect = redirect => {
+        if (redirect) {
+            return <Redirect to="/cart" />
+        }
+    }
+
     return (
         <>
             <div className="col-md-4 product-men mb-3">
                 <div className="men-pro-item simpleCart_shelfItem">
                     <div className="men-thumb-item text-center">
+                        {shouldRedirect(redirect)}
                         <img src={`http://localhost:5000/${product.product_image}`} className="img-fluid" style={{ height: '350px' }} alt="" />
                         <div className="men-cart-pro">
                             <div className="inner-men-cart-pro">
@@ -22,7 +36,7 @@ const Card = ({ product }) => {
                             <span className="item_price">Rs.{product.product_price}</span>
                         </div>
                         <div className="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
-                            <button className="btn btn-info">Add to Cart</button>
+                            <button onClick={addToCart} className="btn btn-info">Add to Cart</button>
                         </div>
 
                     </div>

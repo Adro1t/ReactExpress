@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { isAuthenticated, signout } from '../components/auth'
+import { itemTotal } from '../components/cartApi'
 
 
 const Navbar = ({ history }) => {
@@ -35,7 +36,7 @@ const Navbar = ({ history }) => {
                                     </Fragment>
                                 )}
 
-                                {isAuthenticated() && isAuthenticated().user.role === 0 &&(
+                                {isAuthenticated() && isAuthenticated().user.role === 0 && (
                                     <li className="text-center text-white">
                                         <Link to="/user/dashboard" className="text-white">
                                             My Profile
@@ -43,7 +44,7 @@ const Navbar = ({ history }) => {
                                     </li>
                                 )}
 
-                                {isAuthenticated() && isAuthenticated().user.role === 1 &&(
+                                {isAuthenticated() && isAuthenticated().user.role === 1 && (
                                     <li className="text-center text-white">
                                         <Link to="/admin/dashboard" className="text-white">
                                             Admin Dashboard
@@ -72,8 +73,8 @@ const Navbar = ({ history }) => {
 
                         <div className="col-md-3 logo_agile">
                             <h1 className="text-center">
-                                <Link to="index.html" className="font-weight-bold font-italic">
-                                    <img src="images/logo2.png" alt=" " className="img-fluid" />Electro Store
+                                <Link to="/" className="font-weight-bold font-italic">
+                                    <img src="/images/logo2.png" al t=" " className="img-fluid" />Online Store
 						</Link>
                             </h1>
                         </div>
@@ -90,13 +91,13 @@ const Navbar = ({ history }) => {
 
                                 <div className="col-2 top_nav_right text-center mt-sm-0 mt-2">
                                     <div className="wthreecartaits wthreecartaits2 cart cart box_1">
-                                        <form action="#" method="post" className="last">
-                                            <input type="hidden" name="cmd" value="_cart" />
-                                            <input type="hidden" name="display" value="1" />
-                                            <button className="btn w3view-cart" type="submit" name="submit" value="">
+                                        <Link to="/cart">
+                                            <button className="btn w3view-cart">
                                                 <i className="fas fa-cart-arrow-down"></i>
+                                                <sup style={{fontSize: '20px',padding:'2px'}}><small>{itemTotal()}</small></sup>
+
                                             </button>
-                                        </form>
+                                        </Link>
                                     </div>
                                 </div>
 
@@ -137,168 +138,21 @@ const Navbar = ({ history }) => {
                                     </Link>
                                 </li>
                                 <li className="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
-                                    <Link className="nav-link dropdown-toggle" to="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Electronics
+                                    <Link className="nav-link" to="/shop" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Shop
 							</Link>
-                                    <div className="dropdown-menu">
-                                        <div className="agile_inner_drop_nav_info p-4">
-                                            <h5 className="mb-3">Mobiles, Computers</h5>
-                                            <div className="row">
-                                                <div className="col-sm-6 multi-gd-img">
-                                                    <ul className="multi-column-dropdown">
-                                                        <li>
-                                                            <Link to="product.html">All Mobile Phones</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product.html">All Mobile Accessories</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product.html">Cases & Covers</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product.html">Screen Protectors</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product.html">Power Banks</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product.html">All Certified Refurbished</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product.html">Tablets</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product.html">Wearable Devices</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product.html">Smart Home</Link>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="col-sm-6 multi-gd-img">
-                                                    <ul className="multi-column-dropdown">
-                                                        <li>
-                                                            <Link to="product.html">Laptops</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product.html">Drives & Storage</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product.html">Printers & Ink</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product.html">Networking Devices</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product.html">Computer Accessories</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product.html">Game Zone</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product.html">Software</Link>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </li>
                                 <li className="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
-                                    <Link className="nav-link dropdown-toggle" to="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <Link className="nav-link" to="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Appliances
 							</Link>
-                                    <div className="dropdown-menu">
-                                        <div className="agile_inner_drop_nav_info p-4">
-                                            <h5 className="mb-3">TV, Appliances, Electronics</h5>
-                                            <div className="row">
-                                                <div className="col-sm-6 multi-gd-img">
-                                                    <ul className="multi-column-dropdown">
-                                                        <li>
-                                                            <Link to="product2.html">Televisions</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product2.html">Home Entertainment Systems</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product2.html">Headphones</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product2.html">Speakers</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product2.html">MP3, Media Players & Accessories</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product2.html">Audio & Video Accessories</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product2.html">Cameras</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product2.html">DSLR Cameras</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product2.html">Camera Accessories</Link>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                                <div className="col-sm-6 multi-gd-img">
-                                                    <ul className="multi-column-dropdown">
-                                                        <li>
-                                                            <Link to="product2.html">Musical Instruments</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product2.html">Gaming Consoles</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product2.html">All Electronics</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product2.html">Air Conditioners</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product2.html">Refrigerators</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product2.html">Washing Machines</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product2.html">Kitchen & Home Appliances</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product2.html">Heating & Cooling Appliances</Link>
-                                                        </li>
-                                                        <li>
-                                                            <Link to="product2.html">All Appliances</Link>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </li>
                                 <li className="nav-item mr-lg-2 mb-lg-0 mb-2">
                                     <Link className="nav-link" to="about.html">About Us</Link>
                                 </li>
-                                <li className="nav-item mr-lg-2 mb-lg-0 mb-2">
-                                    <Link className="nav-link" to="product.html">New Arrivals</Link>
-                                </li>
-                                <li className="nav-item dropdown mr-lg-2 mb-lg-0 mb-2">
-                                    <Link className="nav-link dropdown-toggle" to="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Pages
-							</Link>
-                                    <div className="dropdown-menu">
-                                        <Link className="dropdown-item" to="product.html">Product 1</Link>
-                                        <Link className="dropdown-item" to="product2.html">Product 2</Link>
-                                        <div className="dropdown-divider"></div>
-                                        <Link className="dropdown-item" to="single.html">Single Product 1</Link>
-                                        <Link className="dropdown-item" to="single2.html">Single Product 2</Link>
-                                        <div className="dropdown-divider"></div>
-                                        <Link className="dropdown-item" to="checkout.html">Checkout Page</Link>
-                                        <Link className="dropdown-item" to="payment.html">Payment Page</Link>
-                                    </div>
-                                </li>
+
                                 <li className="nav-item">
                                     <Link className="nav-link" to="contact.html">Contact Us</Link>
                                 </li>
